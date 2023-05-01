@@ -9,11 +9,13 @@ const Bottons = styled.button`
     font-weight:600;
     text-align:center;
     cursor: pointer;
-    padding: 1rem;
+    padding: .75rem 1.5rem;
+    border: none;
+    margin: 1rem;
 `
 
-const Botton = () => {
- return <Bottons >E</Bottons>
+const BottonS = ({titulo}) => {
+ return <Bottons >{titulo}</Bottons>
      
 }
-export default Botton
+export default BottonS

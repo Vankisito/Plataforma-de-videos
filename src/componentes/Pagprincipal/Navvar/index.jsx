@@ -1,19 +1,8 @@
 import {  Box } from "@mui/material"
-import styled from "styled-components"
+import { Link } from "react-router-dom"
+import "./index.css"
 
-const BontonUpload = styled.button`
-    background-color: transparent;
-    border-radius: 4px;
-    color: #f5f5f5;
-    border: 1px solid #f5f5f5;
-    margin: 20px 0 20px 0;
-    padding: 1.1rem;
-    cursor: pointer;
-    @media(max-width: 768px){
-        display: none
-    }
-        
-`
+
 const NavVar = () => {
     return <Box
     sx={{
@@ -21,13 +10,13 @@ const NavVar = () => {
         flexDirection: "row",
         backgroundColor: "black",
         justifyContent: "space-around",
-        borderBottom: "3.5px solid #2A7AE4",
-        
+        borderBottom: "2px solid #2A7AE4",
+        paddin: "1rem"
         
     }}
     >
-    <img src="/vankiflix.png" alt="logo pagina"></img>
-    <BontonUpload>Subir video</BontonUpload>
+    <Link to="/"><img src="https://fontmeme.com/permalink/230501/efcdd449a339c4d8c1b34f69850d2c39.png" alt="netflix-font" border="0"/></Link>
+    <Link to="/subirvideo" className="BontonUpload" >Subir video</Link>
     
     </Box>
 }

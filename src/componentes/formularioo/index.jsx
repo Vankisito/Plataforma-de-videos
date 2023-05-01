@@ -1,114 +1,109 @@
-import { useState } from "react"
-import CampoTexto from "./Campotexto/campoTexto"
-import { Box } from "@mui/material"
-import { validarTitulo,validarCodigo,validarDescripcion,validarLinkImg,validarLinkVideo } from "./validaciones"
+import { useRef, useState } from "react"
+import { Box, TextField } from "@mui/material"
+import { validarTitulo,validarGeneral } from "./validaciones"
 import BottonP from "./boton/principal"
-
-const Form = () => {
-
-    const handleChangeTitulo = (e, i, validator) => {
-        const value = e.target.value;
-        const valid = validator(value)
-        setInfoForm({titulo: value})
-        setInputs(inputs[0].value = value)
-        console.log(infoForm.titulo)
-
-    }
-    const handleChangeLinkVideo = (e, i, validator) => {
-        const value = e.target.value;
-        const valid = validator(value)
-        setInfoForm({linkVideo: value})
-        setInputs(inputs[i].valid =valid)
+import styled from "styled-components"
+import "./index.css"
+import { v4 as uuidv4 } from 'uuid';
+import BottonS from "./boton/secundario"
+import { Link } from "react-router-dom"
+import ListaOpciones from "./ListaOpciones"
 
 
-    }
-    const handleChangeLinkImg = (e, i, validator) => {
-        const value = e.target.value;
-        const valid = validator(value)
-        setInfoForm({linkImagen: value})
-        setInputs(inputs[i].valid =valid)
+const Titulo = styled.h1`
+    font-weight:400;
+    color: #f5f5f5;
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+`
 
+const Form = (props) => {
+    const form = useRef()
 
-    }
-    const handleChangeDescripcion = (e, i, validator) => {
-        const value = e.target.value;
-        const valid = validator(value)
-        setInfoForm({descripcion: value})
-        setInputs(inputs[i].valid =valid)
-
-    }
-    const handleChangeCodigo = (e, i, validator) => {
-        const value = e.target.value;
-        const valid = validator(value)
-        setInfoForm({codigo: value})
-        setInputs(inputs[i].valid =valid)
-
-    }
-
-    const [infoForm, setInfoForm] = useState(
+    const [titulo,setTitulo] = useState({
+        label: "Titulo",
+        valid: null,
+        type: "text",
+        value: ""
+    })
+    const [linkVideo,setLinkVideo] = useState({
+        label: "Link del video",
+        valid: null,
+        type: "text",
+        value: ""
+    })
+    const [linkImg,setLinkImg] = useState({
+        label: "Link de la imagen",
+        valid: null,
+        type: "text",
+        value: ""
+    })
+    const [categoria,setCategoria] = useState({
+        valid: null,
+        value: ""
+    })
+    const [Descripcion,setDescripcion] = useState({
+        label: "Descripcion",
+        valid: null,
+        type: "text",
+        value: ""
+    })
+    const [codigo,setCodigo] = useState({
+        label: "Codigo",
+        valid: null,
+        type: "text",
+        value: ""
+    })
+    
+    const onSubmit = (e) => {
+        e.preventDefault()
+        form.current.reset()
+        e.target.reset()
+        if(titulo.valid && linkVideo.valid && linkImg.valid && Descripcion.valid && codigo.valid) {
+        var DatosAEnviar=
         {
-            titulo: "",
-            linkVideo: "",
-            linkImagen: "",
-            categoria: "",
-            descripcion: "",
-            codigo: "",   
-        },
-    )
-
-    const [inputs,setInputs] = useState([
-        {
-            label: "Titulo",
-            type: "text",
-            value: "",
-            valid: null,
-            onChange: handleChangeTitulo,
-            helperText: "Ingresa un titulo.",
-            validator: validarTitulo,
-        },
-        {
-            label: "Link del video",
-            type: "text",
-            value: "",
-            valid: null,
-            onChange: handleChangeLinkVideo,
-            helperText: "Ingresa un link valido.",
-            validator: validarLinkVideo,
-        },
+            id: uuidv4(),
+            titulo : titulo.value,
+            linkVideo: linkVideo.value,
+            linkImg: linkImg.value,
+            genero: categoria.value,
+            descripcion: Descripcion.value,
+            codigo: codigo.value,
+        }   
+            form.current.reset()
+            e.target.reset()
+            props.NuevoVideo(DatosAEnviar)
+        }
         
-        {
-            label: "Link imagen del video",
-            type: "text",
-            value: "",
-            valid: null,
-            onChange: handleChangeLinkImg,
-            helperText: "Ingresa un enlace valido.",
-            validator: validarLinkImg,
-        },
-        {
-            label: "Descripcion",
-            type: "text",
-            value: "",
-            valid: null,
-            onChange: handleChangeDescripcion,
-            helperText: "Ingresa una descripcon.",
-            validator: validarDescripcion,
-        },
-        {
-            label: "Codigo de seguridad",
-            type: "text",
-            value: "",
-            valid: null,
-            onChange: handleChangeCodigo,
-            helperText: "Ingresa un codigo.",
-            validator: validarCodigo,
-        },
-    ])
+    }
 
-    return (<Box>
-        
-        <CampoTexto data={inputs}/>
-        <BottonP/>
+
+    return (<Box
+        ref={form}
+        component="form"
+        autoComplete="off"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around ",
+          flexDirection: "row",
+          backgroundColor: "#000000e0",
+          flexWrap: "wrap",
+        }
+    }
+        onSubmit={(e) => onSubmit(e)}
+    >
+        <Titulo>Nuevo Video</Titulo>
+        <TextField label={titulo.label} className="campo-texto" variant="filled" margin="normal" fullWidth type={titulo.type} error={titulo.valid === false} helperText={titulo.valid === false && "Ingresa un titulo valido"} value={titulo.value} onChange={(e) => setTitulo({value:e.target.value,valid:validarTitulo(e.target.value)})}/>
+        <TextField label={linkVideo.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={linkVideo.type} error={linkVideo.valid === false} helperText={linkVideo.valid === false && "Ingresa un link valido"} value={linkVideo.value} onChange={(e) => setLinkVideo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <TextField label={linkImg.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={linkImg.type} error={linkImg.valid === false} helperText={linkImg.valid === false && "Ingresa un link valido"} value={linkImg.value} onChange={(e) => setLinkImg({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <TextField label={Descripcion.label} variant="filled" className="campo-texto" margin="normal" multiline rows={4} fullWidth type={Descripcion.type} error={Descripcion.valid === false} helperText={Descripcion.valid === false && "Ingresa una descripcion valida"} value={Descripcion.value} onChange={(e) => setDescripcion({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <ListaOpciones value={categoria.value} setValue={setCategoria} categoria={props.categoria}/>
+        <TextField label={codigo.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={codigo.type} error={codigo.valid === false} helperText={codigo.valid === false && "Ingresa un codigo valido"} value={codigo.value} onChange={(e) => setCodigo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <BottonP titulo="Guardar" type="submit"/>
+        <BottonS titulo="Limpiar" onClick={() => console.log("hola")}/>
+        <Link to="/nuevacategoria" className="Nuevacategoria">Nueva categoria </Link>
     </Box>)
 }
 export default Form
