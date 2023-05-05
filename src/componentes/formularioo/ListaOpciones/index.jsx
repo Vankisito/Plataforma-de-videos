@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 const SelectLista = styled.select`
-    width: 98.9vw;
+    width: 94vw;
     background-color: #4E5358;
     border: none;
     margin: .75rem 0 .75rem;

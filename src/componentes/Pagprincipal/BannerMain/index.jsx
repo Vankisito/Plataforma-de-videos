@@ -1,11 +1,12 @@
 import styled from "styled-components"
+import Generos from "../generos"
 
 const DivMain = styled.div`
     display: flex;
-    background-image: url("/bgM.png");
+    background-image: url("/bgM.svg");
     justify-content: space-evenly;
     align-items: center;
-    padding: 20px 20px 130px 20px;
+    padding: 20px 20px 60px 20px;
     font-family: 'Roboto', sans-serif;
 `
 
@@ -23,15 +24,29 @@ const Titulo = styled.h1`
     color: #f5f5f5;
     padding: 10px;
     border-radius: 4px;
+    @media(max-width: 768px){
+        display: none;
+        font-size: 27px;
+        
+    }
 `
 const SubTitulo = styled.h2`
     margin: 0 0 20px;
     color: #f5f5f5;
+    @media(max-width: 768px){
+        margin: 150px 0;
+        font-size: 27px;
+        
+    }
+   
 `
 const Parrafo = styled.p`
     margin: 0 0 20px;
     width: 400px;
     color: #f5f5f5;
+    @media (max-width: 769px){
+        display: none;
+    }
 `
 
 const ImageDiv = styled.div`
@@ -39,27 +54,38 @@ const ImageDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 769px){
+        display: none;
+    }
 `
 
 const Image = styled.img`
     max-width: 100%;
-    height: auto;
-    margin-right: 25%;
+    border: 2px solid#6BD1FF;
+    margin-right: 30%;
+    @media (max-width: 769px){
+        display: none;
+    }
 `
 
 
-const BannerMain = () => {
-    return <DivMain>
+const BannerMain = ({categoria, video}) => {
+    return <>
+    <DivMain>
         <TextDiv>
             <Titulo> Reggaeton </Titulo> 
             <SubTitulo>Challenge React</SubTitulo>
             <Parrafo>Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React.</Parrafo>
         </TextDiv>  
         <ImageDiv>
-            <Image src="/player.png" alt="Imagen referencia"/>
+            <Image src="https://i.ytimg.com/vi/ZPJN-aWvj_U/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC87ZEaKhMVAnQbLQb0r7O0iFAWLA" alt="Imagen referencia" />
         </ImageDiv>
+        
     </DivMain>
-    
+    {
+        categoria.map((data) => <Generos datos={data} key={data.nombre} videos={video.filter(video => video.genero === data.nombre)}/>)
+    }
+    </>
 }
 
 export default BannerMain

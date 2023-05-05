@@ -9,6 +9,10 @@ import BottonS from "./boton/secundario"
 import { Link } from "react-router-dom"
 import ListaOpciones from "./ListaOpciones"
 
+const CostumeField = styled(TextField)`
+    color: #E5E5E5;
+    width: 95%;
+`
 
 const Titulo = styled.h1`
     font-weight:400;
@@ -61,21 +65,18 @@ const Form = (props) => {
         form.current.reset()
         e.target.reset()
         if(titulo.valid && linkVideo.valid && linkImg.valid && Descripcion.valid && codigo.valid) {
-        var DatosAEnviar=
-        {
-            id: uuidv4(),
-            titulo : titulo.value,
-            linkVideo: linkVideo.value,
-            linkImg: linkImg.value,
-            genero: categoria.value,
-            descripcion: Descripcion.value,
-            codigo: codigo.value,
-        }   
             form.current.reset()
             e.target.reset()
-            props.NuevoVideo(DatosAEnviar)
-        }
-        
+            props.NuevoVideo({
+                id: uuidv4(),
+                titulo : titulo.value,
+                linkVideo: linkVideo.value,
+                linkImg: linkImg.value,
+                genero: categoria.value,
+                descripcion: Descripcion.value,
+                codigo: codigo.value,
+            })
+        }   
     }
 
 
@@ -95,12 +96,12 @@ const Form = (props) => {
         onSubmit={(e) => onSubmit(e)}
     >
         <Titulo>Nuevo Video</Titulo>
-        <TextField label={titulo.label} className="campo-texto" variant="filled" margin="normal" fullWidth type={titulo.type} error={titulo.valid === false} helperText={titulo.valid === false && "Ingresa un titulo valido"} value={titulo.value} onChange={(e) => setTitulo({value:e.target.value,valid:validarTitulo(e.target.value)})}/>
-        <TextField label={linkVideo.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={linkVideo.type} error={linkVideo.valid === false} helperText={linkVideo.valid === false && "Ingresa un link valido"} value={linkVideo.value} onChange={(e) => setLinkVideo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
-        <TextField label={linkImg.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={linkImg.type} error={linkImg.valid === false} helperText={linkImg.valid === false && "Ingresa un link valido"} value={linkImg.value} onChange={(e) => setLinkImg({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
-        <TextField label={Descripcion.label} variant="filled" className="campo-texto" margin="normal" multiline rows={4} fullWidth type={Descripcion.type} error={Descripcion.valid === false} helperText={Descripcion.valid === false && "Ingresa una descripcion valida"} value={Descripcion.value} onChange={(e) => setDescripcion({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <CostumeField label={titulo.label} className="campo-texto" variant="filled"  margin="normal" type={titulo.type} error={titulo.valid === false} helperText={titulo.valid === false && "Ingresa un titulo valido"} value={titulo.value} onChange={(e) => setTitulo({value:e.target.value,valid:validarTitulo(e.target.value)})}/>
+        <CostumeField label={linkVideo.label} variant="filled" className="campo-texto" margin="normal"  type={linkVideo.type} error={linkVideo.valid === false} helperText={linkVideo.valid === false && "Ingresa un link valido"} value={linkVideo.value} onChange={(e) => setLinkVideo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <CostumeField label={linkImg.label} variant="filled" className="campo-texto" margin="normal"  type={linkImg.type} error={linkImg.valid === false} helperText={linkImg.valid === false && "Ingresa un link valido"} value={linkImg.value} onChange={(e) => setLinkImg({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <CostumeField label={Descripcion.label} variant="filled" className="campo-texto" margin="normal" multiline rows={4}  type={Descripcion.type} error={Descripcion.valid === false} helperText={Descripcion.valid === false && "Ingresa una descripcion valida"} value={Descripcion.value} onChange={(e) => setDescripcion({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
         <ListaOpciones value={categoria.value} setValue={setCategoria} categoria={props.categoria}/>
-        <TextField label={codigo.label} variant="filled" className="campo-texto" margin="normal" fullWidth type={codigo.type} error={codigo.valid === false} helperText={codigo.valid === false && "Ingresa un codigo valido"} value={codigo.value} onChange={(e) => setCodigo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
+        <CostumeField label={codigo.label} variant="filled" className="campo-texto" margin="normal"  type={codigo.type} error={codigo.valid === false} helperText={codigo.valid === false && "Ingresa un codigo valido"} value={codigo.value} onChange={(e) => setCodigo({value:e.target.value,valid:validarGeneral(e.target.value)})}/>
         <BottonP titulo="Guardar" type="submit"/>
         <BottonS titulo="Limpiar" onClick={() => console.log("hola")}/>
         <Link to="/nuevacategoria" className="Nuevacategoria">Nueva categoria </Link>
