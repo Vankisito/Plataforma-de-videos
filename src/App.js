@@ -135,6 +135,7 @@ function App() {
 
   ])
 
+
   //nuevo video
   const NewVideo = (Video) => {
     setVideos([...Videos,Video])
@@ -161,7 +162,7 @@ function App() {
           <Route path='/subirvideo' element={<Form categoria={categorias.map((categoria) => categoria.nombre)} NuevoVideo={NewVideo}/>}/>
           <Route path='/nuevacategoria' element={<FormCategoria NuevaCategoria={NewCategoria}  categorias={categorias}  setCategorias={setCategorias}/>}/>
           <Route path='*' element={<BannerMain/>}/>
-          <Route path='/categorias' element={<Table categorias={categorias} setCategorias={setCategorias}/>}/>
+          <Route path='/categorias' element={<Table categorias={categorias} setCategorias={setCategorias} eliminarGenero={eliminarGenero}/>}/>
           
         </Routes>
         <Footer/>

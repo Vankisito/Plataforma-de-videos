@@ -16,7 +16,7 @@ const DivStyled = styled.div`
   
 
 const Table = (props) => {
-    const { setCategorias, categorias} = props
+    const { setCategorias, categorias, eliminarGenero } = props
     const {id, nombre, descripcion, codigo} = props.categorias
 
 
@@ -28,6 +28,7 @@ const Table = (props) => {
         <DivStyled>
             <DataGrid
                 rows={rows}
+                
                 columns={columns}
                 getRowId={(row) => row.id}
                 initialState={{

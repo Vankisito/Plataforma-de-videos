@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Generos from "../generos"
+import { Link } from "react-router-dom"
+import "./index.css"
 
 const DivMain = styled.div`
     display: flex;
@@ -42,6 +44,7 @@ const SubTitulo = styled.h2`
 `
 const Parrafo = styled.p`
     margin: 0 0 20px;
+
     width: 400px;
     color: #f5f5f5;
     @media (max-width: 769px){
@@ -68,9 +71,22 @@ const Image = styled.img`
     }
 `
 
+const DivBM = styled.div`
+    display:none;
+    background-color: #6BD1FF;
+    padding: 1rem;
+    margin-top: 1rem;
+    @media(max-width: 768px){
+    background-color: #6BD1FF;
+    display:contents;
+    padding: 1rem;
+    margin-top: 1rem;
+    }
+    
+`
 
 const BannerMain = ({categoria, video}) => {
-    return <>
+    return (<>
     <DivMain>
         <TextDiv>
             <Titulo> Reggaeton </Titulo> 
@@ -85,7 +101,10 @@ const BannerMain = ({categoria, video}) => {
     {
         categoria.map((data) => <Generos datos={data} key={data.nombre} videos={video.filter(video => video.genero === data.nombre)}/>)
     }
-    </>
+
+    <DivBM ><Link to="/subirvideo" className="buttonmobile">Subir video</Link></DivBM>
+       
+    </>)
 }
 
 export default BannerMain
