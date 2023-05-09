@@ -54,6 +54,12 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
     borderColor: colorPrimario
    }
 
+   const OpenVideo = (url) => {
+    const abrir = window.open(url);
+    
+    return abrir
+}
+
     return <>{
           videos.length > 0 &&
             <Section >
@@ -71,7 +77,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
                           } }
                        >
                             {
-                                videos.map((video,index) => <SplideSlide key={index}><Img src={video.linkImg} alt={titulo} style={obj1} /></SplideSlide>)
+                                videos.map((video,index) => <SplideSlide key={index}><Img src={video.linkImg} alt={titulo} style={obj1} onClick={() => OpenVideo(video.linkVideo)}/></SplideSlide>)
                             }
                        </Splide>
                     </Videos>

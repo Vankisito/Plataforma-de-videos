@@ -86,6 +86,9 @@ const DivBM = styled.div`
 `
 
 const BannerMain = ({categoria, video}) => {
+
+
+    
     return (<>
     <DivMain>
         <TextDiv>
